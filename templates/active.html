@@ -1,0 +1,73 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="{{url_for('.static', filename='landing.css')}}">
+{% endblock %}
+
+`{% block content %}
+
+
+<script>
+ function start(al) {
+  var bar = document.getElementById('progressBar');
+  var status = document.getElementById('status');
+  status.innerHTML = al + "%";
+  bar.value = al;
+  al++;
+  var sim = setTimeout("start(" + al + ")", 1);
+  if (al == 30) {
+    status.innerHTML = "100%";
+    bar.value = 30;
+    clearTimeout(sim);
+    var finalMessage = document.getElementById('finalMessage');
+    finalMessage.innerHTML = "You have picked up the items";
+  }
+
+  if (al == 100) {
+ 	status.innerHTML = "100%";
+	bar.value = 100;
+	clearTimeout(sim);
+	var finalMessage = document.getElementById('finalMessage');
+        finalMessage.innerHTML = "You have completed the order!";
+}
+}
+</script>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+         <a class="navbar-brand" href="#">Help-a-bility</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+            <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+        <div class="col-sm-12 main">
+          <h1 class="page-header">Welcome, {{ name }}</h1>
+ <h1 class="page-header"> These are your current active orders </h1>
+</div>
+<progress id="progressBar" value="0" max="100" style="width: 80%"></progress>
+    <span id="status"></span>
+    <h1 id="finalMessage"></h1>
+    <button onclick="start(0)" type="button" class="btn btn-success">Collected items</button> 
+    <button onclick="start(30)" type="button" class="btn btn-success"> At house </button>
+
+</body>
+{% endblock %}
+

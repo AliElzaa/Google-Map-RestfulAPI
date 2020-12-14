@@ -1,0 +1,83 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}
+Birdie
+{% endblock %}
+
+{% block styles %}
+{{super()}}
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="{{url_for('static', filename='starter-template.css')}}">
+
+{% endblock %}
+
+{% block content %}	
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Help-a-bility</a>
+        </div>
+       <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="{{ url_for('about') }}">About us</a></li>
+            <li><a href="{{ url_for('login') }}">Login</a></li>
+            <li><a href="{{ url_for('signup') }}">Sign Up</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+	</nav>
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+		<div class="texty">
+		<h1> Birdie </h1>
+                <h1> Welcome to the most convenient way to help someone by just travelling! </h1>
+                </div>
+	    </div>
+            <div class="col-sm-6">
+                <div class="split left">
+                    <div class="centered">
+                        <div class="div2">
+                            <img src="https://img.icons8.com/ios/50/000000/user-filled.png" class="center" width="170"
+                                height="180">
+                            <h2>Do you want to volunteer?</h2>
+                            <p>Click below to register!</p>
+                            <a href="{{ url_for('signup') }}"><button type="button"
+                                    class="btn btn-primary btn-lg">Register
+                                    here</button></a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="split right">
+                    <div class="centered">
+                        <div class="div1">
+                            <img src="https://img.icons8.com/ios/50/000000/user-filled.png" class="center" width="170"
+                                height="180">
+                            <h2>Do you want help for yourself?</h2>
+                            <p>Click below to register</p>
+                            <a href="{{ url_for('signup2') }}"><button type="button"
+                                    class="btn btn-primary btn-lg">Register
+                                    here</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+{% endblock %}
+
+

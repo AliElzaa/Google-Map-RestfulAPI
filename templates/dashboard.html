@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Waypoints in Directions</title>
+    
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="{{url_for('static', filename='dashboard.css')}}">
+     
+  </head>
+
+<script type="text/javascript">
+       {% include "markers.js" %}
+    </script>
+<script>
+
+function initMap() {
+        var directionsService = new google.maps.DirectionsService;
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 13,
+          center: {lat: 51.5388666, lng: -0.1685793}
+        });
+        directionsDisplay.setMap(map);
+
+        document.getElementById('submit').addEventListener('click', function() {
+          calculateAndDisplayRoute(directionsService, directionsDisplay);
+	  console.log(calculateAndDisplayRoute(directionsService, directionsDisplay));
+        });
+      
+
+      function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+        var waypts = [];
+        var checkboxArray = document.getElementById('waypoints');
+        for (var i = 0; i < checkboxArray.length; i++) {
+          if (checkboxArray.options[i].selected) {
+            waypts.push({
+              location: checkboxArray[i].value,
+              stopover: true
+            });
+          }
+        }
+
+	//var orderboxArray = document.getElementById('orderlocations');
+	//for (var i = 0; i < orderboxArray.length; i++) {
+          //if (orderboxArray.options[i].selected) {
+            //waypts.push({
+		//location: orderboxArray[i].value,
+		//stopover: true
+		//});
+	//}
+    //}
+	
+
+        console.log(directionsService.route({
+          origin: document.getElementById('start').value,
+          destination: document.getElementById('end').value,
+          waypoints: waypts,
+          optimizeWaypoints: true,
+          travelMode: 'DRIVING'
+        }, function(response, status) {
+          if (status === 'OK') {
+            directionsDisplay.setDirections(response);
+            var route = response.routes[0];
+            var summaryPanel = document.getElementById('directions-panel');
+            summaryPanel.innerHTML = '';
+            // For each route, display summary information.
+            for (var i = 0; i < route.legs.length; i++) {
+              var routeSegment = i + 1;
+              summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
+                  '</b><br>';
+              summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
+	      summaryPanel.innerHTML += route.legs[i].duration.text + '<br><br>';
+            }
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
+        }));
+      }
+
+
+        var icons = {
+          supermarket: {
+            icon: 'https://img.icons8.com/ios/50/000000/shopping-cart-filled.png'
+          },
+           house: {
+          icon:  'https://img.icons8.com/office/40/000000/bungalow.png'
+          },
+        
+        };
+
+var features = [
+{% for orders in form %}
+
+{ position: new google.maps.LatLng({{orders.lat}}, {{ orders.lng }}),
+  type: 'house'
+  
+}, 
+
+{% endfor %}
+ 
+  { position: new google.maps.LatLng(51.5388666, -0.1685793),
+  type: 'supermarket'
+},
+
+{ position: new google.maps.LatLng(51.568151, -0.218803),
+  type: 'supermarket'
+},
+{ position: new google.maps.LatLng(51.591676, -0.226486),
+  type: 'supermarket'
+},
+
+{ position: new google.maps.LatLng(51.584525, -0.235139),
+  type: 'supermarket'
+}
+
+
+
+ ];      
+
+        // Create markers.
+        for (var i = 0; i < features.length; i++) {
+          var marker = new google.maps.Marker({
+            position: features[i].position,
+            icon: icons[features[i].type].icon,
+           map: map
+          });
+        };
+
+
+      }
+
+</script>
+  
+{% block content %}
+    <div>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        <a class="navbar-brand" href="#">Birdie</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="{{ url_for('index') }}">Index</a></li>
+            <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+</div>
+    <div id="map"></div>
+    <div id="right-panel">
+    <div>
+    <b>Start:</b>
+    <select id="start">
+      <option value="NW4 4SJ">Home </option>
+      <option value="N1C 4AG">Work</option>
+      <option value="E8 4RA">Brothers House</option>
+    </select>
+    <br>
+    <b>Waypoints:</b> <br>
+    <i>(Ctrl+Click or Cmd+Click for multiple selection)</i> <br>
+    
+
+	<select multiple id="waypoints">
+        {% for orders in form %}
+		<option value="{{ orders.zip }}">{{ orders.des }} </option>	            
+	{% endfor %}
+	<hr>
+
+
+<option value=""> ------- SELECT SUPERMARKET ------- </option>
+
+      <option value="NW4 4HT"> Tesco Supermarket </option>
+      <option value="NW8 6HS"> Asda supermarket </option>
+      <option value="NW4 4JT"> Tesco Supermarket </option>
+      </select>
+    <br>
+    <b>End:</b>
+<select id="end">
+        <option value="NW4 4SJ">Home </option>
+      <option value="N1C 4AG">Work</option>
+      <option value="E8 4RA">Brothers House</option>
+
+    </select>
+    <br>
+   <button input type="submit" id="submit" class="btn btn-primary btn-lg"> Submit  </button>
+<a href="{{ url_for('active') }}" ><button input class="btn btn-primary btn-lg"> Claim Order  </button></a>
+
+    </div>
+    <div id="directions-panel"></div>
+    </div>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9TnE-M1XAePpfqidA76sY4mqtagxs2us&callback=initMap">
+    </script>
+{% endblock %}
+ </body>
+</html>

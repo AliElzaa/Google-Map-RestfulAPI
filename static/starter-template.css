@@ -1,0 +1,125 @@
+body {
+	padding-top: 50px;
+	background-image: url('background2.jpg');
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+ background-color: rgba(0, 0, 0, 0.5);
+
+  	
+}
+
+.starter-template {
+	padding: 40px 15px;
+	text-align: center;
+      }
+
+.split {
+  height: 100%;
+  width: 100%;
+/*  padding-top: 0px; */
+}
+
+/* Control the left side */
+.left {
+  left: 0;
+ background-color: rgba(0,0,0, 0.5);
+ margin: auto;
+ padding-left: 2px;
+}
+
+/* Control the right side */
+.right {
+  right: 0;
+ background-color: rgba(4,0,0, 0.4);
+ margin: auto;
+ padding-left: 2px;
+}
+
+/* If you want the content centered horizontally and vertically */
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+/* Style the image inside the centered container, if needed */
+.centered img {
+  display: block;
+ border-radius: 100px;
+ -webkit-border-radius: 100px;
+ -moz-border-radius: 100px;
+ margin: auto auto;
+}
+
+.div1 {
+  width: 300px;
+  height: 400px;
+  box-sizing: border-box;
+  background-color: rgba(255,0,0, 0.5);
+}
+
+.div2 {
+  width: 300px;
+  height: 400px;
+  box-sizing: border-box;
+  background-color: rgba(0,0,255, 0.5);
+}
+
+p {
+text-align: center;
+  font-size: 1em;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 1px 2px rgba(black,.15);
+
+}
+
+h1 {
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 50px;
+    margin-bottom: 25px;
+    font-family: Montserrat,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
+color: white;
+    z-index:1;
+    text-align: center;
+}
+
+
+h2 {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 50px;
+    margin-bottom: 25px;
+    font-family: Montserrat,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
+color: white;
+    z-index:1;
+
+}
+
+
+
+.btn {
+
+color: #ffa500;
+
+}
+
+.navbar-brand {
+
+color: #ffa500;
+font-weight: bold;
+
+}
+
+
+.texty {
+
+background-color: rgba(0,0,255, 0.5);
+
+}
