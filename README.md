@@ -3,7 +3,7 @@
 This project is a FLASK restful API that uses javascript on the front end. This is a basic bird's eye view of the system:
 
 
-![alt text](https://ibb.co/tDSgHjv)
+![birds-eye view layout](https://ibb.co/tDSgHjv)
 
 
 
